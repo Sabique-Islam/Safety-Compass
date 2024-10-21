@@ -45,8 +45,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/gsap.min.js"></script>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
     <script>
+        // To implement search functionality in country drop down menu
         $(document).ready(function () {
-            // Initialize Select2 on the country and city dropdowns
             $('#country').select2({
                 placeholder: "--Select Country--",
                 allowClear: true
@@ -56,13 +56,10 @@
                 placeholder: "--Select City--",
                 allowClear: true
             });
-
-            // Populate the city dropdown based on selected country
             $('#country').on('change', function () {
                 var selectedCountry = $(this).val();
                 if (selectedCountry) {
                     $('#city').prop('disabled', false);
-                    // Logic to populate the city dropdown here...
                 } else {
                     $('#city').prop('disabled', true).val('').trigger('change');
                 }
