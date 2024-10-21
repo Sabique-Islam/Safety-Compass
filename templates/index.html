@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Safety Compass</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="info-section">
+            <h1>SAFETY COMPASS</h1>
+            <p>This Safety Compass App helps tourists evaluate the safety of a location based on various metrics.</p>
+            <h2>Key Features:</h2>
+            <ul>
+                <li>Comprehensive safety ratings based on crime statistics.</li>
+                <li>Information on public health and environmental hazards.</li>
+                <li>Community engagement and emergency preparedness insights.</li>
+                <li>Tourist-specific safety measures and resources.</li>
+            </ul>
+            <p>Enter your country and city to get a safety rating that considers various important factors.</p>
+        </div>
+
+        <div class="input-section">
+            <select id="country" class="select1">
+                <option value="">--Select Country--</option>
+                {% for country in countries %}
+                <option value="{{ country }}">{{ country }}</option>
+                {% endfor %}
+            </select>
+            <select id="city" class="select2" disabled>
+                <option value="">--Select City--</option>
+            </select>
+            <button id="get-rating" disabled>Check Safety</button>
+            <div id="loader" class="loader" style="display:none;">Loading...</div>
+            <div id="rating-result"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/gsap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize Select2 on the country and city dropdowns
+            $('#country').select2({
+                placeholder: "--Select Country--",
+                allowClear: true
+            });
+
+            $('#city').select2({
+                placeholder: "--Select City--",
+                allowClear: true
+            });
+
+            // Populate the city dropdown based on selected country
+            $('#country').on('change', function () {
+                var selectedCountry = $(this).val();
+                if (selectedCountry) {
+                    $('#city').prop('disabled', false);
+                    // Logic to populate the city dropdown here...
+                } else {
+                    $('#city').prop('disabled', true).val('').trigger('change');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
