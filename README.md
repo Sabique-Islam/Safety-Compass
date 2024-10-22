@@ -45,7 +45,7 @@ To run the **Safety Compass** app locally, follow these steps:
 
 4. **Run the Flask Application**  
    ```bash
-   flask run
+   python app.py
    ```
 
 5. **Access the App**  
